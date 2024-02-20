@@ -16,12 +16,11 @@ root.resizable( 0,0 )
 
 
 #background photo
-'''bg_img=Image.open("")
-bg_resize=bg_img.resize("1000x800")
-bg=ImageTk.PhotoImage(bg_resize)'''
-
-
-
+bg_img=Image.open("blood_bank_logoo.png")
+bg_resize=bg_img.resize((1000,800))
+bg=ImageTk.PhotoImage(bg_resize)
+background_image=Label(image=bg)
+background_image.place(x=0,y=0)
 
 
 
