@@ -3,74 +3,63 @@ from PIL import Image,ImageTk
 import customtkinter 
 
 
-
 #main display
 root=Tk()
-root.geometry("1000x800")
+screen_width=root.winfo_screenwidth()
+screen_height=root.winfo_screenheight()
+root.geometry(f"{screen_width}x{screen_height}")
 root.title("Blood Bank Management System")
  
 
 #background color
 root.configure(bg="black")
-root.resizable( 0,0 )
+# root.resizable( 0,0 )
 
 
 #background photo
-bg_img=Image.open("blood_bank_logoo.png")
-bg_resize=bg_img.resize((1000,800))
-bg=ImageTk.PhotoImage(bg_resize)
+bg=Image.open("pix.jpg")
+# bg_resize=bg.resize((100,80))
+bg=ImageTk.PhotoImage(bg)
 background_image=Label(image=bg)
 background_image.place(x=0,y=0)
 
 
 
 #importing logo
-'''photo=Image.open("logoo.png")
-photo_resize=photo.resize((100,100))
+photo=Image.open("logo.jpg") 
+photo_resize=photo.resize((200,200))
 photo_img=ImageTk.PhotoImage(photo_resize)
 photo_label=Label(image=photo_img)
-photo_label.place(x=10,y=10)'''
+photo_label.place(x=500,y=150)
 
 #inserting HEADING
-Label(text="Save a life: Donate Blood!",font=("Lucida Fax",18,"italic" ,"bold","underline"),bg="pink1",fg="black",pady=15,borderwidth=4 ,relief=RAISED).place(x=500,y=60)
+Label(text="Save a life: Donate Blood!",font=("Didot",40,"italic" ,"bold","underline"),bg="white",fg="maroon",pady=15,borderwidth=4).place(x=750,y=170)
 
 #giving info about the website
-Label(text='''About US: Welcome to our Blood Bank Management System,
-           a vital platform dedicated to serving the community of Pune and beyond.
-           Located in the heart of Pune, our website offers a seamless experience for
-           individuals seeking blood donations, as well as those looking to contribute 
-           to the cause of saving lives. Our platform acts as a centralized hub, connecting
-           donors with recipients in need, ensuring timely access to life-saving blood products.
-           Through our user-friendly interface, donors can register, schedule appointments, 
-           and conveniently locate nearby blood donation events. Recipients can search for 
-           compatible donors and request blood units as per their specific requirements.
-           Beyond facilitating blood donations, our website serves as a catalyst for community wellness. 
-           Join us in our mission to make a difference. Together, we can ensure 
-           that no life is lost due to a shortage of blood.''',font=("gadugi",10),bg="pink1",fg="black",pady=15,borderwidth=4,relief=RAISED).place(x=200,y=200)
+Label(text='''ABOUT US: Welcome to our Blood Bank Management System website!
+      We are dedicated to facilitating the vital process of blood donation and distribution
+      to save lives. Our platform offers an efficient and secure way for donors to register,
+      and track their donations. For hospitals and blood banks, our system provides
+      streamlined inventory management, real-time tracking of blood units, and
+      automated alerts for critical shortages.Together, we can make a significant 
+      impact in ensuring a steady supply of blood for those in need.''',font=("gadugi",15),bg="white",fg="brown4",pady=15,borderwidth=4,relief=RAISED).place(x=500,y=470)
 
 
 #DONATE Button
-donate_button=customtkinter.CTkButton(root,text="DONATE",font=("Lucida fax",15,"bold"))
-donate_button.place(x=350,y=550)
+donate_button=Button(root,text="DONATE",font=("Lucida fax",30,"bold"),relief=RAISED,borderwidth=5)
+
+donate_button.config(bg="brown3")
+donate_button.place(x=600,y=870)
 donate_button.bind('<Double-1>',quit)
 
 
 #NEED Button
-need_button=customtkinter.CTkButton(root,text="NEED",fg_color="red",font=("Lucida Fax",15,"bold"))
-need_button.place(x=650,y=550)
+need_button= Button(root,text="NEED",font=("Lucida Fax",30,"bold"),relief=RAISED,borderwidth=5)
+need_button.config(bg="brown3")
+need_button.place(x=1050,y=870)
 need_button.bind('<Double-1>',quit)
 
 root.mainloop()
 
 
-# from tkinter import *
-# import customtkinter 
-# root=Tk()
-# root.geometry("400x600") 
-# name=Label(text="hello")
-# name.pack()
-# user_entry=Entry()
-# user_entry.pack()
-# button=customtkinter.CTkButton(root,text="Submit")
-# button.pack()
-# root.mainloop()
+ 
