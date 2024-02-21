@@ -1,6 +1,5 @@
 from tkinter import *
 from PIL import Image,ImageTk
-import customtkinter 
 
 
 #main display
@@ -17,7 +16,7 @@ root.configure(bg="black")
 
 
 #background photo
-bg=Image.open("pix.jpg")
+bg=Image.open("../assets/pix.jpg")
 # bg_resize=bg.resize((100,80))
 bg=ImageTk.PhotoImage(bg)
 background_image=Label(image=bg)
@@ -26,7 +25,7 @@ background_image.place(x=0,y=0)
 
 
 #importing logo
-photo=Image.open("logo.jpg") 
+photo=Image.open("../assets/logo.jpg") 
 photo_resize=photo.resize((200,200))
 photo_img=ImageTk.PhotoImage(photo_resize)
 photo_label=Label(image=photo_img)
