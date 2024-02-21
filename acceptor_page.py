@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 
+
 class BloodDonationApp:
     def __init__(self, root):
         self.root = root
@@ -44,6 +45,9 @@ class BloodDonationApp:
         self.label3 = ttk.Combobox(self.root, values=self.location, state="readonly", font=("Arial", 14))
         self.label3.set("Location")
         self.label3.place(x=980, y=460, width=100, height=60)
+#Back button
+        self.back_label = ttk.Button(text="back")
+        self.back_label.place(x=50,y=50)
 
         # Search Button
         self.search_button = tk.Button(self.root, text="Search", command=self.search, font=("Arial", 14))
@@ -82,6 +86,11 @@ class BloodDonationApp:
 
         for i, line in enumerate(filtered_data):
             self.tree.insert('', tk.END, iid=i, text=line[0], values=line[1:], tags=("Treeview",))
+
+    # def back_fun(self):
+        # app = MainApp(self)
+        
+
 
 
 if __name__ == "__main__":
