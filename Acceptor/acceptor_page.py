@@ -23,12 +23,12 @@ class BloodDonationApp:
         self.style = ttk.Style()
         self.style.theme_use("clam")
 
-        self.label1 = tk.Label(text="Welcome to our Blood Donation Acceptor Page", bg="Brown2", fg="white",
+        self.label1 = tk.Label(text='''Blood Needed!                       Be a Beacon of Hope''', bg="Brown2", fg="white",
                                font=("didot", 40, "bold"), justify="center", wraplength=550, borderwidth=3,
                                relief=tk.RAISED)
         self.label1.place(x=470, y=75, width=500, height=150)
 
-        self.label4 = tk.Label(text="To find potential blood acceptors, please use the dropdown menus to select "
+        self.label4 = tk.Label(text="To find potential blood Donor's, please use the dropdown menus to select "
                                     "the blood group and location.", justify="center", wraplength=800,
                                bg="LightSkyBlue3", fg="black", font=("san serif", 30), borderwidth=2, relief=tk.GROOVE)
         self.label4.place(x=615, y=300)
