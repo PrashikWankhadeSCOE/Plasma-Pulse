@@ -2,80 +2,89 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 
-def search():
-    selected_blood_group = label2.get()
-    selected_location = label3.get()
+class BloodDonationApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title('Acceptor Page')
+        self.screen_width = self.root.winfo_screenwidth()
+        self.screen_height = self.root.winfo_screenheight()
+        self.root.geometry(f"{self.screen_width}x{self.screen_height}")
+        self.root.configure(bg="white")
 
-    # Clear items in the Treeview
-    for item in tree.get_children():
-        tree.delete(item)
+        # Background Image
+        bg_image = Image.open("../assets/acceptor2.jpg")
+        bg_resize = bg_image.resize((self.screen_width, self.screen_height))
+        self.bg = ImageTk.PhotoImage(bg_resize)
 
-    filtered_data = [line for line in data if line[1] == selected_blood_group]
+        self.bg_label = tk.Label(self.root, image=self.bg)
+        self.bg_label.place(x=0, y=0)
 
-    if selected_location:
-        filtered_data = [line for line in filtered_data if line[2].lower().find(selected_location.lower()) != -1]
+        # Styles for Treeview
+        self.style = ttk.Style()
+        self.style.theme_use("clam")
 
-    for i, line in enumerate(filtered_data):
-        tree.insert('', tk.END, iid=i, text=line[0], values=line[1:], tags=("Treeview",))
+        self.label1 = tk.Label(text="Welcome to our Blood Donation Acceptor Page", bg="Brown2", fg="white",
+                               font=("didot", 40, "bold"), justify="center", wraplength=550, borderwidth=3,
+                               relief=tk.RAISED)
+        self.label1.place(x=470, y=75, width=500, height=150)
 
-window = tk.Tk()
-window.title('Tkinter Place Geometry Manager')
-screen_width = window.winfo_screenwidth()
-screen_height = window.winfo_screenheight()
-window.geometry(f"{screen_width}x{screen_height}")
-window.configure(bg="white")
+        self.label4 = tk.Label(text="To find potential blood acceptors, please use the dropdown menus to select "
+                                    "the blood group and location.", justify="center", wraplength=800,
+                               bg="LightSkyBlue3", fg="black", font=("san serif", 30), borderwidth=2, relief=tk.GROOVE)
+        self.label4.place(x=615, y=300)
 
-# Background Image
-bg_image = Image.open("../assets/acceptor2.jpg")
-bg_resize = bg_image.resize((screen_width, screen_height))
-bg = ImageTk.PhotoImage(bg_resize)
+        self.bloodgroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
-bg_label = tk.Label(window, image=bg)
-bg_label.place(x=0, y=0)
+        self.label2 = ttk.Combobox(self.root, values=self.bloodgroups, state="readonly", font=("Arial", 14))
+        self.label2.set("Blood Group")
+        self.label2.place(x=780, y=460, width=130, height=60)
 
-# Styles for Treeview
-style = ttk.Style()
-style.theme_use("clam")
+        self.location = ["Pune", "Mumbai", "Nashik"]
+
+        self.label3 = ttk.Combobox(self.root, values=self.location, state="readonly", font=("Arial", 14))
+        self.label3.set("Location")
+        self.label3.place(x=980, y=460, width=100, height=60)
+
+        # Search Button
+        self.search_button = tk.Button(self.root, text="Search", command=self.search, font=("Arial", 14))
+        self.search_button.place(x=905, y=550, width=80, height=40)
+
+        self.data = [
+            ["Pratik", "B+", "Sinhgad College, Pune, 411041", "9607271171"],
+            ["Prashik", "A-", "Baner, Pune, 411046", "1234567890"],
+            ["Aashu", "O+", "Dadar, Mumbai", "1234567890"],
+            ["Akshat", "AB-", "Thane, Mumbai", "12345678990"],
+        ]
+        self.index = 0
+
+        self.columns = ("age", "salary", "phno")
+
+        self.tree = ttk.Treeview(self.root, columns=self.columns, height=10, style="Treeview")
+        self.tree.place(x=600, y=625)
+
+        self.tree.heading('#0', text='Name')
+        self.tree.heading('age', text='Blood Group')
+        self.tree.heading('salary', text='Address')
+        self.tree.heading('phno', text='Phone Number')
+
+    def search(self):
+        selected_blood_group = self.label2.get()
+        selected_location = self.label3.get()
+
+        # Clear items in the Treeview
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+
+        filtered_data = [line for line in self.data if line[1] == selected_blood_group]
+
+        if selected_location:
+            filtered_data = [line for line in filtered_data if line[2].lower().find(selected_location.lower()) != -1]
+
+        for i, line in enumerate(filtered_data):
+            self.tree.insert('', tk.END, iid=i, text=line[0], values=line[1:], tags=("Treeview",))
 
 
-label1 = tk.Label(text="Welcome to our Blood Donation Acceptor Page", bg="Brown2", fg="white", font=("didot", 40, "bold"), justify="center", wraplength=550, borderwidth=3, relief=tk.RAISED)
-label1.place(x=470, y=75, width=500, height=150)
-
-label4 = tk.Label(text="To find potential blood acceptors, please use the dropdown menus to select the blood group and location.", justify="center", wraplength=800, bg="LightSkyBlue3", fg="black", font=("san serif", 30), borderwidth=2, relief=tk.GROOVE)
-label4.place(x=615, y=350)
-
-bloodgroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
-
-label2 = ttk.Combobox(window, values=bloodgroups, state="readonly", font=("Arial", 14))
-label2.set("Blood Group")
-label2.place(x=770, y=470, width=130, height=60)
-
-location = ["Pune", "Mumbai", "Nashik"]
-
-label3 = ttk.Combobox(window, values=location, state="readonly", font=("Arial", 14))
-label3.set("Location")
-label3.place(x=970, y=470, width=100, height=60)
-
-# Search Button
-search_button = tk.Button(window, text="Search", command=search, font=("Arial", 14))
-search_button.place(x=900, y=550, width=80, height=40)
-
-data = [
-    ["Pratik", "B+", "Sinhgad College, Pune, 411041", "9607271171"],
-    ["Prashik", "A-", "Baner, Pune, 411046", "1234567890"],
-    ["Aashu", "O+", "Dadar, Mumbai", "1234567890"],
-    ["Akshat", "AB-", "Thane, Mumbai", "12345678990"],
-]
-index = 0
-
-columns = ("age", "salary", "phno")
-
-tree = ttk.Treeview(window, columns=columns, height=10, style="Treeview")
-tree.place(x=600, y=625)
-
-tree.heading('#0', text='Name')
-tree.heading('age', text='Blood Group')
-tree.heading('salary', text='Address')
-tree.heading('phno', text='Phone Number')
-
-window.mainloop()
+if __name__ == "__main__":
+    window = tk.Tk()
+    app = BloodDonationApp(window)
+    window.mainloop()
