@@ -3,16 +3,17 @@ from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
+
+
 import json
 from google.cloud import firestore
 
 # Initialize Firestore client
-credentials_path = '../setup/your_key.json'
+credentials_path = 'setup/your_key.json'
 with open(credentials_path) as json_file:
     credentials_info = json.load(json_file)
 
 db = firestore.Client.from_service_account_info(credentials_info)
-
 
 class DonorInformationForm:
     def __init__(self, root):
@@ -23,7 +24,7 @@ class DonorInformationForm:
         self.root.geometry(f"{self.screen_width}x{self.screen_height}")
 
         # Background Image
-        bg_image = Image.open("../assets/Image.jpg")
+        bg_image = Image.open("assets/Image.jpg")
         bg_resize = bg_image.resize((self.screen_width, self.screen_height))
         self.bg = ImageTk.PhotoImage(bg_resize)
         self.bg_label = Label(root, image=self.bg)
