@@ -112,12 +112,13 @@ class DonorInformationForm:
         if(self.male1 == 1): gender_flag = "male" 
         elif(self.female1 == 2): gender_flag = "female"
 
-        if not all([namevalue,bg_value, phoneno_value]):
+        if not all([namevalue , agevalue, location_value,phoneno_value]):
             messagebox.showerror("Error", "Please fill in all required fields.")
             return
-        # if not self.phoneno_value.isdigit() or len(self.phoneno_value) != 10:
-        #     messagebox.showerror("Error", "Please enter a valid 10-digit mobile number.")
-        #     return
+
+        if not phoneno_value.isdigit() or len(phoneno_value) != 10:
+            messagebox.showerror("Error", "Please enter a valid 10-digit mobile number.")
+            return
 
         # Form output text
         output_text = f"Name: {namevalue}\n" \
@@ -132,12 +133,12 @@ class DonorInformationForm:
         # Create a new user profile entry
         user_profile = {
             'first_name': namevalue,
-            'mobile_no': phoneno_value,
+            'mobile_no': int(phoneno_value),
             'blood group': bg_value,
-            'age': agevalue,
+            'age': int(agevalue),
             'address': address_value,
             'gender': gender_flag,
-            'Location': location_value
+            'location': location_value
         }
         # Add the user profile to Firestore
         new_user_ref = user_profiles_ref.add(user_profile)
