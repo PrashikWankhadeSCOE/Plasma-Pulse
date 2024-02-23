@@ -13,7 +13,7 @@ class BloodDonationApp:
         self.root.configure(bg="white")
 
         # Background Image
-        bg_image = Image.open("../assets/acceptor2.jpg")
+        bg_image = Image.open("assets/acceptor2.jpg")
         bg_resize = bg_image.resize((self.screen_width, self.screen_height))
         self.bg = ImageTk.PhotoImage(bg_resize)
 

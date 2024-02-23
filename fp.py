@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
+#from Donar.donar_page import DonorInformationForm
 from acceptor_page import BloodDonationApp
 from donar_page import *
 # import json
@@ -19,7 +20,7 @@ class MainApp(tk.Tk):
         self.bg_image = Image.open("assets/pix.jpg")
         self.bg_image = ImageTk.PhotoImage(self.bg_image)
         self.bg_label = tk.Label(self, image=self.bg_image)
-        self.bg_label.place(x=0, y=0)
+        self.bg_label.place(x=0,y=0)
 
         self.logo_image = Image.open("assets/logo.jpg")
         self.logo_image = ImageTk.PhotoImage(self.logo_image.resize((200, 200)))
@@ -54,6 +55,8 @@ class MainApp(tk.Tk):
     def donor_page(self):
         app = DonorInformationForm(self)
         
+    #def donor_page(self):
+    #    app = DonorInformationForm(self)
 if __name__ == "__main__":
     app = MainApp()
     app.mainloop()
