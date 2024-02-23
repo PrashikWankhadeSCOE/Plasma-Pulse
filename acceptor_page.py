@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 from PIL import Image, ImageTk
-
+import firebase_admin
+from firebase_admin import credentials, firestore
 
 class BloodDonationApp:
     def __init__(self, root):
@@ -11,6 +13,11 @@ class BloodDonationApp:
         self.screen_height = self.root.winfo_screenheight()
         self.root.geometry(f"{self.screen_width}x{self.screen_height}")
         self.root.configure(bg="white")
+
+        # Initialize Firestore
+        cred = credentials.Certificate("setup/your_key.json")
+        firebase_admin.initialize_app(cred)
+        self.db = firestore.client()
 
         # Background Image
         bg_image = Image.open("assets/acceptor2.jpg")
@@ -50,7 +57,7 @@ class BloodDonationApp:
         self.back_label.place(x=50,y=50)
 
         # Search Button
-        self.search_button = tk.Button(self.root, text="Search", command=self.search, font=("Arial", 14))
+        self.search_button = tk.Button(self.root, text="Search", command=self.fetch, font=("Arial", 14))
         self.search_button.place(x=905, y=550, width=80, height=40)
 
         self.data = [
@@ -89,9 +96,31 @@ class BloodDonationApp:
 
     # def back_fun(self):
         # app = MainApp(self)
+            
+    def fetch(self):
+        user_profiles_ref = self.db.collection('user_profiles')
+        user_profiles = user_profiles_ref.stream()
         
+        # Display records
+        count = 1
+        records_text = ""
+        for user_profile in user_profiles:
+            user_data = user_profile.to_dict()
+            records_text += f"Record : {count}\n" \
+                            f"Name: {user_data['first_name']}\n" \
+                            f"Age: {user_data['age']}\n" \
+                            f"Gender: {user_data['gender']}\n" \
+                            f"Blood Group: {user_data['blood group']}\n" \
+                            f"Location: {user_data['location']}\n" \
+                            f"Address: {user_data['address']}\n" \
+                            f"Firestore User ID: {user_profile.id}\n\n"
+            count += 1
 
-
+        if records_text:
+            messagebox.showinfo("Records", records_text)
+        else:
+            messagebox.showinfo("Records", "No records found")
+        
 
 if __name__ == "__main__":
     window = tk.Tk()

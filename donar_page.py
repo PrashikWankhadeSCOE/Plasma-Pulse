@@ -3,16 +3,17 @@ from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
+
+
 import json
 from google.cloud import firestore
 
 # Initialize Firestore client
-credentials_path = '../setup/your_key.json'
+credentials_path = 'setup/your_key.json'
 with open(credentials_path) as json_file:
     credentials_info = json.load(json_file)
 
 db = firestore.Client.from_service_account_info(credentials_info)
-
 
 class DonorInformationForm:
     def __init__(self, root):
@@ -23,7 +24,7 @@ class DonorInformationForm:
         self.root.geometry(f"{self.screen_width}x{self.screen_height}")
 
         # Background Image
-        bg_image = Image.open("../assets/Image.jpg")
+        bg_image = Image.open("assets/Image.jpg")
         bg_resize = bg_image.resize((self.screen_width, self.screen_height))
         self.bg = ImageTk.PhotoImage(bg_resize)
         self.bg_label = Label(root, image=self.bg)
@@ -111,12 +112,13 @@ class DonorInformationForm:
         if(self.male1 == 1): gender_flag = "male" 
         elif(self.female1 == 2): gender_flag = "female"
 
-        if not all([namevalue,bg_value, phoneno_value]):
+        if not all([namevalue , agevalue, location_value,phoneno_value]):
             messagebox.showerror("Error", "Please fill in all required fields.")
             return
-        # if not self.phoneno_value.isdigit() or len(self.phoneno_value) != 10:
-        #     messagebox.showerror("Error", "Please enter a valid 10-digit mobile number.")
-        #     return
+
+        if not phoneno_value.isdigit() or len(phoneno_value) != 10:
+            messagebox.showerror("Error", "Please enter a valid 10-digit mobile number.")
+            return
 
         # Form output text
         output_text = f"Name: {namevalue}\n" \
@@ -131,12 +133,12 @@ class DonorInformationForm:
         # Create a new user profile entry
         user_profile = {
             'first_name': namevalue,
-            'mobile_no': phoneno_value,
+            'mobile_no': int(phoneno_value),
             'blood group': bg_value,
-            'age': agevalue,
+            'age': int(agevalue),
             'address': address_value,
             'gender': gender_flag,
-            'Location': location_value
+            'location': location_value
         }
         # Add the user profile to Firestore
         new_user_ref = user_profiles_ref.add(user_profile)
