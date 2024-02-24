@@ -99,6 +99,10 @@ class DonorInformationForm:
         self.submit_button = tk.Button(root, text="Submit", borderwidth=10,command=self.submit_form)
         self.submit_button.place(x=650, y=600, width=80)
 
+        self.back_button = tk.Button(root,text="Back",borderwidth=5,command=self.go_back)
+        self.back_button.place(x=50,y=30)
+
+
     def submit_form(self):
         print('submit madhe gela')
     
@@ -150,6 +154,11 @@ class DonorInformationForm:
                         f"Firestore User ID: {user_id}\n" \
                         f"{output_text}"
         messagebox.showinfo("Success", success_message)
+
+
+    def go_back(self):
+        print("Back button clicked")
+
 
 if __name__ == "__main__":
     root = tk.Tk()
