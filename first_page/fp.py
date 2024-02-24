@@ -5,9 +5,7 @@ import customtkinter
 
 #main display
 root=Tk()
-screen_width=root.winfo_screenwidth()
-screen_height=root.winfo_screenheight()
-root.geometry(f"{screen_width}x{screen_height}")
+root.geometry("1000x800")
 root.title("Blood Bank Management System")
  
 
@@ -17,23 +15,25 @@ root.configure(bg="black")
 
 
 #background photo
-bg=Image.open("pix.jpg")
-# bg_resize=bg.resize((100,80))
+bg=Image.open("first_page/pix.jpg")
+bg_resize=bg.resize((1000,800))
+#background_image=Label(image=bg)
 bg=ImageTk.PhotoImage(bg)
 background_image=Label(image=bg)
+#background_image=Label(image=bg)
 background_image.place(x=0,y=0)
 
 
 
 #importing logo
-photo=Image.open("logo.jpg") 
-photo_resize=photo.resize((200,200))
+photo=Image.open("first_page/logo.jpg") 
+photo_resize=photo.resize((100,100))
 photo_img=ImageTk.PhotoImage(photo_resize)
 photo_label=Label(image=photo_img)
-photo_label.place(x=500,y=150)
+photo_label.place(x=250,y=150)
 
 #inserting HEADING
-Label(text="Save a life: Donate Blood!",font=("Didot",40,"italic" ,"bold","underline"),bg="white",fg="maroon",pady=15,borderwidth=4).place(x=750,y=170)
+Label(text="Save a life: Donate Blood!",font=("Didot",25,"italic" ,"bold","underline"),bg="white",fg="maroon",pady=15,borderwidth=4).place(x=400,y=170)
 
 #giving info about the website
 Label(text='''ABOUT US: Welcome to our Blood Bank Management System website!
@@ -42,21 +42,21 @@ Label(text='''ABOUT US: Welcome to our Blood Bank Management System website!
       and track their donations. For hospitals and blood banks, our system provides
       streamlined inventory management, real-time tracking of blood units, and
       automated alerts for critical shortages.Together, we can make a significant 
-      impact in ensuring a steady supply of blood for those in need.''',font=("gadugi",15),bg="white",fg="brown4",pady=15,borderwidth=4,relief=RAISED).place(x=500,y=470)
+      impact in ensuring a steady supply of blood for those in need.''',font=("gadugi",11),bg="white",fg="brown4",pady=15,borderwidth=4,relief=RAISED).place(x=250,y=330)
 
 
 #DONATE Button
-donate_button=Button(root,text="DONATE",font=("Lucida fax",30,"bold"),relief=RAISED,borderwidth=5)
+donate_button=Button(root,text="DONATE",font=("Lucida fax",20,"bold"),relief=RAISED,borderwidth=5)
 
 donate_button.config(bg="brown3")
-donate_button.place(x=600,y=870)
+donate_button.place(x=300,y=600)
 donate_button.bind('<Double-1>',quit)
 
 
 #NEED Button
-need_button= Button(root,text="NEED",font=("Lucida Fax",30,"bold"),relief=RAISED,borderwidth=5)
+need_button= Button(root,text="NEED",font=("Lucida Fax",20,"bold"),relief=RAISED,borderwidth=5)
 need_button.config(bg="brown3")
-need_button.place(x=1050,y=870)
+need_button.place(x=650,y=600)
 need_button.bind('<Double-1>',quit)
 
 root.mainloop()
