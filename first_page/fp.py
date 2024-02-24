@@ -15,7 +15,7 @@ root.resizable( 0,0 )
 
 
 #background photo
-bg=Image.open("first_page/pix.jpg")
+bg=Image.open("assets/pix.jpg")
 bg_resize=bg.resize((1000,800))
 #background_image=Label(image=bg)
 bg=ImageTk.PhotoImage(bg)
@@ -26,7 +26,7 @@ background_image.place(x=0,y=0)
 
 
 #importing logo
-photo=Image.open("first_page/logo.jpg") 
+photo=Image.open("assets/logo.jpg") 
 photo_resize=photo.resize((100,100))
 photo_img=ImageTk.PhotoImage(photo_resize)
 photo_label=Label(image=photo_img)
