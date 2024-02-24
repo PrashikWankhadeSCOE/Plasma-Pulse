@@ -5,6 +5,13 @@ from PIL import Image, ImageTk
 import firebase_admin
 from firebase_admin import credentials, firestore
 
+# Constants for JSON Keys
+FIRST_NAME_KEY = 'first_name'
+BLOOD_GROUP_KEY = 'blood group'
+ADDRESS_KEY = 'address'
+LOCATION_KEY = 'location'
+MOBILE_NO_KEY = 'mobile_no'
+
 class BloodDonationApp:
     def __init__(self, root):
         self.root = root
@@ -52,25 +59,20 @@ class BloodDonationApp:
         self.label3 = ttk.Combobox(self.root, values=self.location, state="readonly", font=("Arial", 14))
         self.label3.set("Location")
         self.label3.place(x=980, y=460, width=100, height=60)
-#Back button
+
+        # Back button
         self.back_label = ttk.Button(text="back")
-        self.back_label.place(x=50,y=50)
+        self.back_label.place(x=50, y=50)
 
         # Search Button
-        self.search_button = tk.Button(self.root, text="Search", command=self.fetch, font=("Arial", 14))
+        self.search_button = tk.Button(self.root, text="Search", command=self.search, font=("Arial", 14))
         self.search_button.place(x=905, y=550, width=80, height=40)
 
-        self.data = [
-            ["Pratik", "B+", "Sinhgad College, Pune, 411041", "9607271171"],
-            ["Prashik", "A-", "Baner, Pune, 411046", "1234567890"],
-            ["Aashu", "O+", "Dadar, Mumbai", "1234567890"],
-            ["Akshat", "AB-", "Thane, Mumbai", "12345678990"],
-        ]
-        self.index = 0
+        self.data = []
 
         self.columns = ("age", "salary", "phno")
 
-        self.tree = ttk.Treeview(self.root, columns=self.columns, height=10, style="Treeview")
+        self.tree = ttk.Treeview(self.root, columns=self.columns, style="Treeview")
         self.tree.place(x=600, y=625)
 
         self.tree.heading('#0', text='Name')
@@ -78,51 +80,74 @@ class BloodDonationApp:
         self.tree.heading('salary', text='Address')
         self.tree.heading('phno', text='Phone Number')
 
+        self.tree.column('#0', width=100, minwidth=100, stretch=tk.NO)
+        self.tree.column('age', width=100, minwidth=100, stretch=tk.NO)
+        self.tree.column('salary', width=300, minwidth=100, stretch=tk.NO)
+        self.tree.column('phno', width=150, minwidth=100, stretch=tk.NO)
+
+        self.tree.tag_configure("Treeview", background="white", foreground="black", font=("Arial", 12))
+
     def search(self):
-        selected_blood_group = self.label2.get()
-        selected_location = self.label3.get()
+        try:
+            selected_blood_group = self.label2.get()
+            selected_location = self.label3.get()
+
+            # Clear items in the Treeview
+            for item in self.tree.get_children():
+                self.tree.delete(item)
+
+            # Fetch data from Firestore
+            user_profiles_ref = self.db.collection('user_profiles')
+            user_profiles = user_profiles_ref.stream()
+
+            # Display records
+            count = 1
+            for user_profile in user_profiles:
+                user_data = user_profile.to_dict()
+                if user_data[BLOOD_GROUP_KEY] == selected_blood_group and user_data[LOCATION_KEY] == selected_location:
+                    self.data.append([
+                        user_data[FIRST_NAME_KEY],
+                        user_data[BLOOD_GROUP_KEY],
+                        f"{user_data[ADDRESS_KEY]}, {user_data[LOCATION_KEY]}",
+                        user_data[MOBILE_NO_KEY]
+                    ])
+                    self.tree.insert('', tk.END, iid=count, text=user_data[FIRST_NAME_KEY], values=(
+                        user_data[BLOOD_GROUP_KEY],
+                        f"{user_data[ADDRESS_KEY]}, {user_data[LOCATION_KEY]}",
+                        user_data[MOBILE_NO_KEY]
+                    ), tags=("Treeview",))
+                    count += 1
+
+        except Exception as e:
+            print(f"Error: {e}")
+
+    def fetch(self):
+        user_profiles_ref = self.db.collection('user_profiles')
+        user_profiles = user_profiles_ref.stream()
 
         # Clear items in the Treeview
         for item in self.tree.get_children():
             self.tree.delete(item)
 
-        filtered_data = [line for line in self.data if line[1] == selected_blood_group]
-
-        if selected_location:
-            filtered_data = [line for line in filtered_data if line[2].lower().find(selected_location.lower()) != -1]
-
-        for i, line in enumerate(filtered_data):
-            self.tree.insert('', tk.END, iid=i, text=line[0], values=line[1:], tags=("Treeview",))
-
-    # def back_fun(self):
-        # app = MainApp(self)
-            
-    def fetch(self):
-        user_profiles_ref = self.db.collection('user_profiles')
-        user_profiles = user_profiles_ref.stream()
-        
         # Display records
         count = 1
-        records_text = ""
         for user_profile in user_profiles:
             user_data = user_profile.to_dict()
-            records_text += f"Record : {count}\n" \
-                            f"Name: {user_data['first_name']}\n" \
-                            f"Age: {user_data['age']}\n" \
-                            f"Gender: {user_data['gender']}\n" \
-                            f"Blood Group: {user_data['blood group']}\n" \
-                            f"Location: {user_data['location']}\n" \
-                            f"Address: {user_data['address']}\n" \
-                            f"Firestore User ID: {user_profile.id}\n\n"
+            self.data.append([
+                user_data[FIRST_NAME_KEY],
+                user_data[BLOOD_GROUP_KEY],
+                f"{user_data[ADDRESS_KEY]}, {user_data[LOCATION_KEY]}",
+                user_data[MOBILE_NO_KEY]
+            ])
+            self.tree.insert('', tk.END, iid=count, text=user_data[FIRST_NAME_KEY], values=(
+                user_data[BLOOD_GROUP_KEY],
+                f"{user_data[ADDRESS_KEY]}, {user_data[LOCATION_KEY]}",
+                user_data[MOBILE_NO_KEY]
+            ), tags=("Treeview",))
             count += 1
-
-        if records_text:
-            messagebox.showinfo("Records", records_text)
-        else:
-            messagebox.showinfo("Records", "No records found")
-        
 
 if __name__ == "__main__":
     window = tk.Tk()
     app = BloodDonationApp(window)
+    app.fetch()  # Fetch and display initial records
     window.mainloop()
