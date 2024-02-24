@@ -105,7 +105,7 @@ class DonorInformationForm:
         phoneno_value = self.contact_no_entry.get()
         
 
-        if not all([namevalue , agevalue, location_value,phoneno_value]):
+        if not all([namevalue , agevalue, gendervalue, location_value, phoneno_value]):
             messagebox.showerror("Error", "Please fill in all required fields.")
             return
 
