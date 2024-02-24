@@ -57,7 +57,7 @@ class BloodDonationApp:
         self.back_label.place(x=50,y=50)
 
         # Search Button
-        self.search_button = tk.Button(self.root, text="Search", command=self.fetch, font=("Arial", 14))
+        self.search_button = tk.Button(self.root, text="Search", command=self.search, font=("Arial", 14))
         self.search_button.place(x=905, y=550, width=80, height=40)
 
         self.data = [
