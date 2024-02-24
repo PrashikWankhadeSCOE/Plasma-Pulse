@@ -11,7 +11,7 @@ root.title("Blood Bank Management System")
 
 #background color
 root.configure(bg="black")
-# root.resizable( 0,0 )
+root.resizable( 0,0 )
 
 
 #background photo
