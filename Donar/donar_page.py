@@ -92,7 +92,7 @@ class DonorInformationForm:
         self.contact_no_entry = tk.Entry(root, textvariable=self.phoneno_value, font=(15))
         self.contact_no_entry.place(x=850, y=550)
 
-        self.submit_button = tk.Button(root, text="Submit", borderwidth=5 )
+        self.submit_button = tk.Button(root, text="Submit", borderwidth=5, command=self.submit_form)
         self.submit_button.place(x=850, y=600, width=80)
 
     # def submit_form(self):
