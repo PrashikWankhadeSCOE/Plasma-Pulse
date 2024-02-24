@@ -32,14 +32,18 @@ class DonorInformationForm:
         # Headline
         self.headline_label = tk.Label(root, text="DONOR INFORMATION", font=("poppins", 30, "italic bold"),
                                        bg="white", fg="red3")
+
         self.headline_label.place(x=300, y=50)
+
 
         # Textbox
         self.information_text = tk.Label(root, text="Every day, blood donors help patients of all ages: accident "
                                                     "and burn victims, heart surgery and organ transplant patients, "
                                                     "and those battling cancer.", font=("poppins", 12, "italic"),
                                          bg="white", fg="red4", wraplength=400)
+
         self.information_text.place(x=475, y=120)
+
 
         # Initialize variables
         
@@ -57,7 +61,9 @@ class DonorInformationForm:
 
         self.gender_label = tk.Label(root, text="Gender:", borderwidth=4, font=(15))
         self.gender_label.place(x=550, y=350)
+
         self.gender_entry = tk.Entry(root, font= (15))
+
         self.gender_entry.place(x=650,y=350)
 
         self.bloodgroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
@@ -68,6 +74,7 @@ class DonorInformationForm:
         self.blood_group_button = ttk.Combobox(root, values=self.bloodgroups, state="readonly")
         self.blood_group_button.set("Select Blood Group")
         self.blood_group_button.place(x=670, y=400)
+
 
         self.address_label = tk.Label(root, text="Address:", borderwidth=4, font=(15))
         self.address_label.place(x=550, y=450)
@@ -106,6 +113,7 @@ class DonorInformationForm:
         
 
         if not all([namevalue , agevalue, gendervalue, location_value, phoneno_value]):
+
             messagebox.showerror("Error", "Please fill in all required fields.")
             return
 
