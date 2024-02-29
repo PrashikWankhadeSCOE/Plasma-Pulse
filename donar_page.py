@@ -8,6 +8,8 @@ from PIL import Image, ImageTk
 import json
 from google.cloud import firestore
 
+import fp  
+
 # Initialize Firestore client
 credentials_path = 'setup/your_key.json'
 with open(credentials_path) as json_file:
@@ -157,8 +159,8 @@ class DonorInformationForm:
 
 
     def go_back(self):
-        print("Back button clicked")
-
+        self.root.destroy()
+        fp.MainApp().mainloop()
 
 if __name__ == "__main__":
     root = tk.Tk()
