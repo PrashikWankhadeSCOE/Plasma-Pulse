@@ -95,6 +95,9 @@ class BloodDonationApp:
 
         self.tree.tag_configure("Treeview", background="white", foreground="black", font=("Arial", 12))
 
+
+    
+
     def search(self):
         try:
             selected_blood_group = self.label2.get()
@@ -112,7 +115,8 @@ class BloodDonationApp:
             count = 1
             for user_profile in user_profiles:
                 user_data = user_profile.to_dict()
-                if user_data[BLOOD_GROUP_KEY] == selected_blood_group and user_data[LOCATION_KEY] == selected_location:
+                if (not selected_blood_group or user_data[BLOOD_GROUP_KEY] == selected_blood_group) and \
+                   (not selected_location or user_data[LOCATION_KEY] == selected_location):
                     self.data.append([
                         user_data[FIRST_NAME_KEY],
                         user_data[BLOOD_GROUP_KEY],
