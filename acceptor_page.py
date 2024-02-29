@@ -18,9 +18,7 @@ class BloodDonationApp:
     def __init__(self, root):
         self.root = root
         self.root.title('Acceptor Page')
-        self.screen_width = self.root.winfo_screenwidth()
-        self.screen_height = self.root.winfo_screenheight()
-        self.root.geometry(f"{self.screen_width}x{self.screen_height}")
+        self.root.geometry("1000x800")
         self.root.configure(bg="white")
 
         # Initialize Firestore
@@ -30,52 +28,54 @@ class BloodDonationApp:
 
         # Background Image
         bg_image = Image.open("assets/acceptor2.jpg")
-        bg_resize = bg_image.resize((self.screen_width, self.screen_height))
+        bg_resize = bg_image.resize((1000, 800))  # Set the desired window size
         self.bg = ImageTk.PhotoImage(bg_resize)
 
         self.bg_label = tk.Label(self.root, image=self.bg)
         self.bg_label.place(x=0, y=0)
 
+
         # Styles for Treeview
         self.style = ttk.Style()
         self.style.theme_use("clam")
 
-        self.label1 = tk.Label(text='''Blood Needed!                       Be a Beacon of Hope''', bg="Brown2", fg="white",
-                               font=("didot", 40, "bold"), justify="center", wraplength=550, borderwidth=3,
+        self.label1 = tk.Label(text='''   Blood Needed!                                        Be a Beacon of Hope''', bg="Brown2", fg="white",
+                               font=("didot", 30, "bold"), justify="center", wraplength=550, borderwidth=3,
                                relief=tk.RAISED)
-        self.label1.place(x=470, y=75, width=500, height=150)
+        self.label1.place(x=300, y=75, width=350, height=100)
 
-        self.label4 = tk.Label(text="To find potential blood Donor's, please use the dropdown menus to select "
-                                    "the blood group and location.", justify="center", wraplength=800,
-                               bg="LightSkyBlue3", fg="black", font=("san serif", 30), borderwidth=2, relief=tk.GROOVE)
-        self.label4.place(x=615, y=300)
+        self.label4 = tk.Label(text="To find potential blood Donor's," 
+                                    "please use the dropdown menus to select "
+                                    "the blood group and location.", justify="center", wraplength=485,
+                               bg="LightSkyBlue3", fg="black", font=("san serif", 27), borderwidth=2, relief=tk.GROOVE)
+        self.label4.place(x=465, y=250)
 
         self.bloodgroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
         self.label2 = ttk.Combobox(self.root, values=self.bloodgroups, state="readonly", font=("Arial", 14))
         self.label2.set("Blood Group")
-        self.label2.place(x=780, y=460, width=130, height=60)
+        self.label2.place(x=500, y=400, width=130, height=60)
 
         self.location = ["Pune", "Mumbai", "Nashik"]
 
         self.label3 = ttk.Combobox(self.root, values=self.location, state="readonly", font=("Arial", 14))
         self.label3.set("Location")
-        self.label3.place(x=980, y=460, width=100, height=60)
+        self.label3.place(x=770, y=400, width=100, height=60)
 
         # Back button
         self.back_label = ttk.Button(text="back",command=self.go_back)
-        self.back_label.place(x=50, y=50)
+        self.back_label.place(x=35, y=50)
 
         # Search Button
         self.search_button = tk.Button(self.root, text="Search", command=self.search, font=("Arial", 14))
-        self.search_button.place(x=905, y=550, width=80, height=40)
+        self.search_button.place(x=655, y=480, width=80, height=40)
 
         self.data = []
 
         self.columns = ("age", "salary", "phno")
 
         self.tree = ttk.Treeview(self.root, columns=self.columns, style="Treeview")
-        self.tree.place(x=600, y=625)
+        self.tree.place(x=400, y=555)
 
         self.tree.heading('#0', text='Name')
         self.tree.heading('age', text='Blood Group')
@@ -84,7 +84,7 @@ class BloodDonationApp:
 
         self.tree.column('#0', width=100, minwidth=100, stretch=tk.NO)
         self.tree.column('age', width=100, minwidth=100, stretch=tk.NO)
-        self.tree.column('salary', width=300, minwidth=100, stretch=tk.NO)
+        self.tree.column('salary', width=200, minwidth=100, stretch=tk.NO)
         self.tree.column('phno', width=150, minwidth=100, stretch=tk.NO)
 
         self.tree.tag_configure("Treeview", background="white", foreground="black", font=("Arial", 12))
