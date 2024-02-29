@@ -14,6 +14,12 @@ ADDRESS_KEY = 'address'
 LOCATION_KEY = 'location'
 MOBILE_NO_KEY = 'mobile_no'
 
+def initialize_firebase_app():
+    if not firebase_admin._apps:
+        # Initialize the default app only if it's not already initialized
+        cred = credentials.Certificate("setup/your_key.json")
+        firebase_admin.initialize_app(cred)
+
 class BloodDonationApp:
     def __init__(self, root):
         self.root = root
@@ -22,8 +28,8 @@ class BloodDonationApp:
         self.root.configure(bg="white")
 
         # Initialize Firestore
-        cred = credentials.Certificate("setup/your_key.json")
-        firebase_admin.initialize_app(cred)
+        
+        initialize_firebase_app()
         self.db = firestore.client()
 
         # Background Image
