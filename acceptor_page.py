@@ -93,7 +93,7 @@ class BloodDonationApp:
         try:
             selected_blood_group = self.label2.get()
             selected_location = self.label3.get()
-
+            
             # Clear items in the Treeview
             for item in self.tree.get_children():
                 self.tree.delete(item)
@@ -106,7 +106,7 @@ class BloodDonationApp:
             count = 1
             for user_profile in user_profiles:
                 user_data = user_profile.to_dict()
-                if user_data[BLOOD_GROUP_KEY] == selected_blood_group and user_data[LOCATION_KEY] == selected_location:
+                if user_data[BLOOD_GROUP_KEY] == selected_blood_group and user_data[LOCATION_KEY] == selected_location or user_data[BLOOD_GROUP_KEY] == selected_blood_group :
                     self.data.append([
                         user_data[FIRST_NAME_KEY],
                         user_data[BLOOD_GROUP_KEY],
