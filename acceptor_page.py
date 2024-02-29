@@ -46,21 +46,21 @@ class BloodDonationApp:
 
         self.label4 = tk.Label(text="To find potential blood Donor's," 
                                     "please use the dropdown menus to select "
-                                    "the blood group and location.", justify="center", wraplength=485,
-                               bg="LightSkyBlue3", fg="black", font=("san serif", 27), borderwidth=2, relief=tk.GROOVE)
-        self.label4.place(x=465, y=250)
+                                    "the blood group and location.", justify="center", wraplength=685,
+                               bg="LightSkyBlue3", fg="black", font=("san serif", 23), borderwidth=2, relief=tk.GROOVE)
+        self.label4.place(x=170, y=230)
 
         self.bloodgroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
         self.label2 = ttk.Combobox(self.root, values=self.bloodgroups, state="readonly", font=("Arial", 14))
         self.label2.set("Blood Group")
-        self.label2.place(x=500, y=400, width=130, height=60)
+        self.label2.place(x=500, y=330, width=130, height=60)
 
         self.location = ["Pune", "Mumbai", "Nashik"]
 
         self.label3 = ttk.Combobox(self.root, values=self.location, state="readonly", font=("Arial", 14))
         self.label3.set("Location")
-        self.label3.place(x=770, y=400, width=100, height=60)
+        self.label3.place(x=770, y=330, width=100, height=60)
 
         # Back button
         self.back_label = ttk.Button(text="back",command=self.go_back)
@@ -68,14 +68,14 @@ class BloodDonationApp:
 
         # Search Button
         self.search_button = tk.Button(self.root, text="Search", command=self.search, font=("Arial", 14))
-        self.search_button.place(x=655, y=480, width=80, height=40)
+        self.search_button.place(x=655, y=420, width=80, height=40)
 
         self.data = []
 
         self.columns = ("age", "salary", "phno")
 
         self.tree = ttk.Treeview(self.root, columns=self.columns, style="Treeview")
-        self.tree.place(x=400, y=555)
+        self.tree.place(x=400, y=490)
 
         self.tree.heading('#0', text='Name')
         self.tree.heading('age', text='Blood Group')
