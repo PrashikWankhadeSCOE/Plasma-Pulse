@@ -155,7 +155,7 @@ class DonorInformationForm:
         success_message = f"Form submitted successfully.\n\n" \
                         f"Firestore User ID: {user_id}\n" \
                         f"{output_text}"
-        messagebox.showinfo("Success", success_message)
+        messagebox.showinfo("Success", "Thankyou for the donation !")
 
 
     def go_back(self):
