@@ -5,6 +5,8 @@ from PIL import Image, ImageTk
 import firebase_admin
 from firebase_admin import credentials, firestore
 
+import fp
+
 # Constants for JSON Keys
 FIRST_NAME_KEY = 'first_name'
 BLOOD_GROUP_KEY = 'blood group'
@@ -61,7 +63,7 @@ class BloodDonationApp:
         self.label3.place(x=980, y=460, width=100, height=60)
 
         # Back button
-        self.back_label = ttk.Button(text="back")
+        self.back_label = ttk.Button(text="back",command=self.go_back)
         self.back_label.place(x=50, y=50)
 
         # Search Button
@@ -120,6 +122,11 @@ class BloodDonationApp:
 
         except Exception as e:
             print(f"Error: {e}")
+
+    def go_back(self):
+        # Close the current window
+        self.root.destroy()
+        fp.MainApp().mainloop()
 
     def fetch(self):
         user_profiles_ref = self.db.collection('user_profiles')

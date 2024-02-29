@@ -2,8 +2,8 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 #from Donar.donar_page import DonorInformationForm
-from acceptor_page import BloodDonationApp
-from donar_page import *
+import acceptor_page 
+import donar_page 
 # import json
 # from google.cloud import firestore
 
@@ -52,10 +52,10 @@ class MainApp(tk.Tk):
         self.need_button.bind('<Double-1>', self.quit)
 
     def acceptor_page(self):
-        app = BloodDonationApp(self)
+        app = acceptor_page.BloodDonationApp(self)
         # app.mainloop()
     def donor_page(self):
-        app = DonorInformationForm(self)
+        app = donar_page.DonorInformationForm(self)
         
     #def donor_page(self):
     #    app = DonorInformationForm(self)
