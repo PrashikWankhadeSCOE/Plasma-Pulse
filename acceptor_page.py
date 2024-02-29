@@ -46,14 +46,14 @@ class BloodDonationApp:
         self.style.theme_use("clam")
 
         self.label1 = tk.Label(text='''   Blood Needed!                                        Be a Beacon of Hope''', bg="Brown2", fg="white",
-                               font=("didot", 30, "bold"), justify="center", wraplength=550, borderwidth=3,
+                               font=("didot", 28, "bold"), justify="center", wraplength=550, borderwidth=3,
                                relief=tk.RAISED)
-        self.label1.place(x=300, y=75, width=350, height=100)
+        self.label1.place(x=300, y=75, width=400, height=100)
 
         self.label4 = tk.Label(text="To find potential blood Donor's," 
                                     "please use the dropdown menus to select "
                                     "the blood group and location.", justify="center", wraplength=685,
-                               bg="LightSkyBlue3", fg="black", font=("san serif", 23), borderwidth=2, relief=tk.GROOVE)
+                               bg="LightSkyBlue3", fg="black", font=("san serif", 20), borderwidth=2, relief=tk.GROOVE)
         self.label4.place(x=170, y=230)
 
         self.bloodgroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
