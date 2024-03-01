@@ -156,6 +156,12 @@ class DonorInformationForm:
                         f"Firestore User ID: {user_id}\n" \
                         f"{output_text}"
         messagebox.showinfo("Success", "Thankyou for the donation !")
+        self.address_entry.delete(0, tk.END)
+        self.age_entry.delete(0, tk.END)
+        self.name_entry.delete(0, tk.END)
+        self.gender_entry.delete(0, tk.END)
+        self.contact_no_entry.delete(0, tk.END)
+
 
 
     def go_back(self):
